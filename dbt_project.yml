@@ -1,0 +1,30 @@
+name: jaffle_finance
+config-version: 2
+
+profile: snowflake
+require-dbt-version: ">=1.6.0"
+
+model-paths:
+  - models
+macro-paths:
+  - macros
+seed-paths:
+  - seeds
+test-paths:
+  - tests
+analysis-paths:
+  - analyses
+target-path: target
+snapshot-paths:
+  - snapshots
+clean-targets:
+  - target
+  - dbt_packages
+
+models:
+  # Must match `name:` above. Course repo shipped this as `finance_dbt`, which matches
+  # no project, so the config below applied to nothing and the marts silently
+  # materialized as views (dbt's default) instead of tables.
+  jaffle_finance:
+    marts:
+      +materialized: table
